@@ -37,7 +37,7 @@ def experiment_1layer(x, y, layer1_nodes = [64], dropout1 = [0.2],
                                     keras.layers.Dense(46, activation=tf.nn.softmax)]
 
 
-                    accuracy, f1 = repeated_tests(model_layers, x, y, epochs = epochs)
+                    accuracy, f1 = repeated_tests(model_layers, x, y, epochs = epoch)
 
                     t = time.localtime()
                     t = '{}:{}'.format(t.tm_hour, t.tm_min)

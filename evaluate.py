@@ -48,7 +48,7 @@ def repeated_tests(model_layers, x, y, num_tests = 2, epochs = 10):
                   loss='sparse_categorical_crossentropy',
                   metrics=['accuracy'])
     # hack such that weights will be initialized
-    model.fit(x[0:1], y[0:1], epochs = 1, verbose = 1)
+    model.fit(x[0:1], y[0:1], epochs = 1, verbose = 0)
     # save model weights to reinitialize the model in each k-fold
     Wsave = model.get_weights()
     
@@ -57,9 +57,9 @@ def repeated_tests(model_layers, x, y, num_tests = 2, epochs = 10):
     for i, (k_train, k_test) in enumerate(kfold.split(x, y)):
 
         model.set_weights(Wsave) # reset the weights / untrain the model
-        model.fit(x[k_train], y[k_train], epochs = epochs, verbose = 1) 
+        model.fit(x[k_train], y[k_train], epochs = epochs, verbose = 0) 
 
-        pred = model.predict(x[k_test], verbose = 1)
+        pred = model.predict(x[k_test], verbose = 0)
         pred = np.apply_along_axis(np.argmax, 1, np.round(pred))
         
         acc_scores[i] = accuracy_score(y[k_test], pred)
