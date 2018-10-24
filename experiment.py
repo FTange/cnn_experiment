@@ -21,7 +21,7 @@ def get_new_filename(filename, ending):
 def experiment_1layer(x, y, layer1_nodes = [64], dropout1 = [0.2],
                regularization1 = [0.0001], epochs = [10]):
 
-    filename = get_new_filename('../results/nn_2_layer', '.csv')
+    filename = get_new_filename('results/nn_2_layer', '.csv')
 
     with open(filename, "a") as f:
         f.write("layer1,dropout1,reg1,epochs,accuracy,f1,time\n")
@@ -37,7 +37,7 @@ def experiment_1layer(x, y, layer1_nodes = [64], dropout1 = [0.2],
                                     keras.layers.Dense(46, activation=tf.nn.softmax)]
 
 
-                    accuracy, f1 = repeated_tests(model_layers, x, y, epochs = 4)
+                    accuracy, f1 = repeated_tests(model_layers, x, y, epochs = epochs)
 
                     t = time.localtime()
                     t = '{}:{}'.format(t.tm_hour, t.tm_min)
@@ -53,7 +53,7 @@ def experiment_2layer(x, y, layer1_nodes = [64], layer2_nodes = [64],
                dropout1 = [0.2], dropout2 = [0.2], 
                regularization1 = [0.0001], regularization2 = [0.0001], epochs = [10]):
 
-    filename = get_new_filename('../results/nn_2_layer', '.csv')
+    filename = get_new_filename('results/nn_2_layer', '.csv')
 
     with open(filename, "a") as f:
         f.write("layer1,layer2,dropout1,dropout2,reg1,reg2,epochs,accuracy,f1,time\n")
@@ -75,7 +75,7 @@ def experiment_2layer(x, y, layer1_nodes = [64], layer2_nodes = [64],
                                                 keras.layers.Dense(46, activation=tf.nn.softmax)]
 
 
-                                accuracy, f1 = repeated_tests(model_layers, x, y, epochs = 4)
+                                accuracy, f1 = repeated_tests(model_layers, x, y, epochs = epochs)
 
                                 t = time.localtime()
                                 t = '{}:{}'.format(t.tm_hour, t.tm_min)
@@ -88,7 +88,12 @@ def experiment_2layer(x, y, layer1_nodes = [64], layer2_nodes = [64],
 
 
 x, y = get_train_data()
-experiment_1layer(x, y)
+experiment_1layer(x, y,
+           layer1_nodes = [64, 128,256, 512], 
+           dropout1 = [0.2,0.4],
+           regularization1 = [0.0, 0.0001, 0.001],
+           epochs = [10, 20, 40, 60])
+        
 # experiment_2layer(x, y)
 
 
