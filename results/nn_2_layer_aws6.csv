@@ -1,2 +1,0 @@
-layer1,layer2,dropout1,dropout2,reg1,reg2,epochs,accuracy,f1,time
-2048,512,0.2,0.2,0.0,0.0,50,0.9452685421994884,0.9452670022933658,8:40
