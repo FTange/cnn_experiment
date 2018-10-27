@@ -1,2 +1,0 @@
-layer1,dropout1,epochs,filters,kernel_size,strides,pool_size,accuracy,f1,time
-512,0.2,50,32,(3, 3),(2, 2),(3, 3),0.9786125319693095,0.9786385322416008,10:3
