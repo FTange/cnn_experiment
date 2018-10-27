@@ -24,14 +24,32 @@ x_train, x_test, y_train, y_test = \
 
 y_train_nn = transform_y_for_nn(y_train)
 
+"""
 model_layers = [tf.keras.layers.Flatten(),
                 tf.keras.layers.Dropout(0.2),
                 tf.keras.layers.Dense(1024, activation=tf.nn.relu),
                 tf.keras.layers.BatchNormalization(),
                 tf.keras.layers.Dropout(0.2),
                 tf.keras.layers.Dense(512, activation=tf.nn.relu),
+                tf.keras.layers.BatchNormalization(),
                 tf.keras.layers.Dropout(0.2),
                 tf.keras.layers.Dense(output_dim, activation=tf.nn.softmax)]
+"""
+model_layers = [tf.keras.layers.Conv2D(32, kernel_size = (3, 3), strides = (1, 1), 
+                                       activation = 'relu', input_shape = (32, 32, 1)),
+                tf.keras.layers.MaxPooling2D(pool_size = (2, 2), padding='valid',
+                                             strides=None),
+
+                tf.keras.layers.Flatten(),
+                tf.keras.layers.Dropout(0.2),
+                tf.keras.layers.Dense(512, activation=tf.nn.relu),
+                tf.keras.layers.BatchNormalization(),
+
+                tf.keras.layers.Dropout(0.2),
+                tf.keras.layers.Dense(256, activation=tf.nn.relu),
+                tf.keras.layers.BatchNormalization(),
+
+                tf.keras.layers.Dense(46, activation=tf.nn.softmax)]
 
 model = tf.keras.models.Sequential(model_layers)
 
@@ -40,7 +58,7 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 csv_logger = tf.keras.callbacks.CSVLogger('results/2layer_early_stopping.csv')
-model.fit(x_train, y_train, epochs=300, callbacks = [csv_logger], validation_data = (x_test, y_test))
+model.fit(x_train, y_train, epochs=200, callbacks = [csv_logger], validation_data = (x_test, y_test))
 
 # accuracy, f1 = repeated_tests(model_layers, x_train, y_train, y_train_nn)
 
