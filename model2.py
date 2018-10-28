@@ -16,6 +16,9 @@ x, y = get_train_data()
 x_test, y_test = get_test_data()
 # x = x / x.max()
 
+x = x.reshape(-1, 32, 32, 1)
+x_test = x_test.reshape(-1, 32, 32, 1)
+
 input_dim = x.shape[1] * x.shape[2]
 output_dim = y.max() + 1
 
