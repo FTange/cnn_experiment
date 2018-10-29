@@ -22,6 +22,7 @@ x_test = x_test.reshape(-1, 32, 32, 1)
 input_dim = x.shape[1] * x.shape[2]
 output_dim = y.max() + 1
 
+
 model_layers = [tf.keras.layers.Conv2D(32, kernel_size = (3, 3), strides = (1, 1), 
                                        activation = 'relu', input_shape = (32, 32, 1)),
                 tf.keras.layers.MaxPooling2D(pool_size = (2, 2), padding='valid',
@@ -37,7 +38,6 @@ model_layers = [tf.keras.layers.Conv2D(32, kernel_size = (3, 3), strides = (1, 1
                 tf.keras.layers.BatchNormalization(),
 
                 tf.keras.layers.Dense(46, activation=tf.nn.softmax)]
-
 model = tf.keras.models.Sequential(model_layers)
 
 model.compile(optimizer='adam',

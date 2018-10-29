@@ -46,7 +46,7 @@ model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 
-model.fit(x, y, epochs=...)
+model.fit(x, y, epochs=100)
 y_pred = model.predict(x_test)
 y_pred = np.apply_along_axis(np.argmax, 1, np.round(y_pred))
 
@@ -54,5 +54,8 @@ p, r, f, _ = precision_recall_fscore_support(y_test, y_pred, average = 'weighted
 acc = accuracy_score(y_test, y_pred)
 
 print('precision: {:.4f}, recall: {:.4f}, f1: {:.4f}, accuracy: {:.4f}'.format(p, r, f, acc))
+
+with open('predictions_2cnn_1hidden', 'wb') as f:
+    pickle.dump(y_pred, f)
 
 # accuracy, f1 = repeated_tests(model_layers, x_train, y_train, y_train_nn)
